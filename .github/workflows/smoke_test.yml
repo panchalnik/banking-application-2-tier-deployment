@@ -1,7 +1,7 @@
 name: Smoke Testing for Infrs and Networking
 
 on:
-  workflow_dispatch:
+  workflow_call:
     
 
 jobs:
