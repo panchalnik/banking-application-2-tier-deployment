@@ -1,6 +1,6 @@
-name : Test fleet health and env variables
+name: Test Fleet Health and Env Variables
 
-on: 
+on:
   workflow_call:
 
 permissions:
@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::538747155493:role/github-action-deploy-role
           aws-region: us-east-1
@@ -23,8 +24,10 @@ jobs:
             --targets "Key=tag:App,Values=flask" \
             --document-name "AWS-RunShellScript" \
             --parameters '{"commands":["hostname -I"]}' \
-            --query 'Command.CommandId' --output text
-          )
+            --query "Command.CommandId" \
+            --output text)
+
+          echo "Command ID: $CMD_ID"
 
           sleep 30
 
