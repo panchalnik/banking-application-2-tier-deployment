@@ -1,0 +1,18 @@
+FROM python:3.11-slim(last pushed 1 week ago)
+
+WORKDIR /app
+
+RUN apt-get update && \
+  apt-get install -v default-libmysqlclient-dev build -essential pkg-config curl && \
+  rm -rf /var/lib/apt/lists/*
+
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD["gunicorn","--bind","0.0.0.0:5000",""]
